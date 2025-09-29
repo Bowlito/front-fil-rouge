@@ -1,0 +1,8 @@
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* animation douce */
+}
+
+.card-hover:hover {
+  transform: scale(1.05); /* grossissement */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* effet d’ombre optionnel */
+}

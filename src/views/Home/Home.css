@@ -1,0 +1,36 @@
+body {
+  width: 100%;
+  min-height: auto; /* ou height: auto */ /* espace pour respirer */
+  background: url('/public/background_smaller.png') no-repeat center center;
+  background-size: cover;
+  background-position: bottom;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+#scroll_down {
+    width: 70px;
+    height: 70px;
+
+    >path {
+        fill: orange;
+    }
+}
+
+.bounce {
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(8px);
+    }
+}

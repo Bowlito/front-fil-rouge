@@ -1,0 +1,8 @@
+.btn-hover {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-hover:hover {
+  background-color: rgba(15, 23, 51, 1); /* un peu plus foncé */
+  transform: translateY(-2px); /* léger effet “lift” */
+}
