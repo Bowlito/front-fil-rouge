@@ -1,4 +1,4 @@
-import yup from "../../config/Yup config/yup.config";
+import yup from "../../config/Yup_config/yup.config";
 
 const userSchema = yup.object().shape({
   nom: yup
