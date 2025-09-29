@@ -1,7 +1,7 @@
 body {
   width: 100%;
   min-height: auto; /* ou height: auto */ /* espace pour respirer */
-  background: url('/public/background_smaller.png') no-repeat center center;
+  background: url('/background_smaller.png') no-repeat center center;
   background-size: cover;
   background-position: bottom;
 }
