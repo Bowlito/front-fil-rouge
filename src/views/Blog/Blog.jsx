@@ -2,11 +2,27 @@ import { useEffect, useState } from "react";
 import axios from "../../../config/Axios_config/axios.config.js";
 import Post from "../../components/Post/Post.jsx";
 import './Blog.css';
+import { useForm } from "react-hook-form";
 
 export default function Blog() {
     const [publications, setPublications] = useState([]);
     const [users, setUsers] = useState([]);
     const [erreur, setErreur] = useState("");
+    const [publication, setPublication] = useState({})
+    const { handleSubmit, register, formState: { errors, isValid, isSubmitSuccessful }, reset, } = useForm({
+            //resolver: yupResolver(userSchema),
+            mode: "onChange",
+        });
+
+    function getPost(id) {
+
+        axios
+            .get(`/publications/${id}`)
+            .then(res => setPublication(res.data))
+            .catch(() => setErreur("Liste des posts temporairement indisponible"));
+
+
+    }
 
     useEffect(() => {
         axios
@@ -27,13 +43,13 @@ export default function Blog() {
             <h2 className="text-light mb-4">Espace Blog</h2>
             <h3 className="text-light mb-5">Venez partager vos aventures !</h3>
 
-            {/* <Post /> */}
 
             <div className="d-flex flex-column align-items-center gap-5">
                 {publications.map((p, ind) => (
+
                     <div className="card blog-card w-100 shadow-sm" key={ind} style={{ minWidth: "45%" }}>
                         <div className="row align-items-center">
-                            {/* Colonne principale avec texte et image */}
+
                             <div className="col-10">
                                 <img
                                     src="/thumbnail_image0.jpg"
@@ -46,9 +62,11 @@ export default function Blog() {
                                 </div>
                             </div>
 
-                            
+
                             <div className="col-2 d-flex flex-column justify-content-center align-items-center gap-5">
-                                
+
+                                {/* Bouton Liker */}
+
                                 <button className="btn btn-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" width="50" height="48">
                                         <path
@@ -63,14 +81,18 @@ export default function Blog() {
                                     </svg>
                                 </button>
 
-                                
+                                {/* Bouton commenter */}
+
+
+                                <form onSubmit={handleSubmit(() => getPost(p.id_publication))}>
                                 <button className="btn-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" fill="currentColor" viewBox="0 0 16 16">
                                         <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105" />
                                     </svg>
                                 </button>
+                                </form>
 
-                                {/* Bouton Send */}
+                                {/* Bouton envoyer */}
                                 <button className="btn btn-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="50" height="30" fill="currentColor" viewBox="0 0 16 16">
                                         <path fillRule="evenodd" d="M15.854.146a.5.5 0 0 1 .11.54l-2.8 7a.5.5 0 1 1-.928-.372l1.895-4.738-7.494 7.494 1.376 2.162a.5.5 0 1 1-.844.537l-1.531-2.407L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM5.93 9.363l7.494-7.494L1.591 6.602z" />
@@ -82,6 +104,8 @@ export default function Blog() {
                     </div>
                 ))}
             </div>
+
+
         </div>
     );
 }
