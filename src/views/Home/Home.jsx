@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import "../Home/Home.css"
 import Vignette from "../../components/Vignettes/Vignettes";
+import { useContext } from "react";
+import { GlobalContext } from "../../contexts/GlobalContext";
 
 
 export default function Home() {
+
+    const{user} = useContext(GlobalContext)
     return (
         <>
-            <h1 className="mt-5 text-shadow fw-bold" style={{color: "#EB7D05"}}>Bienvenue sur Tripster</h1>
+            <h1 className="mt-5 text-shadow fw-bold" style={{color: "#EB7D05"}}>Bienvenue sur Tripster {user?.prenom}</h1>
 
             <h2 className="mt-5 text-shadow fw-bold" style={{color: "#EB7D05"}}>Ce blog est dédié au partage de mes aventures en roadtrip avec mon van.</h2>
             <h2 className="m-5 text-shadow fw-bold" style={{color: "#EB7D05"}}>Venez découvrir mes roadtrips !</h2>
