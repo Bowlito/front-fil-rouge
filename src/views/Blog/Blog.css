@@ -1,9 +1,3 @@
-/* Import d'une police moderne et douce */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-.blog-container {
-  font-family: 'Inter', sans-serif;
-}
 
 /* Style des cards */
 .blog-card {
@@ -29,21 +23,8 @@
   border-top-right-radius: 15px;
 }
 
-/* Textarea avec transparence et couleur du texte */
-.blog-textarea {
-  height: 100px;
-  background-color: rgba(255,255,255,0.1);
-  color: #fff;
-  border: none;
-  resize: none;
-}
 
-/* Label texte blanc */
-.blog-textarea + label {
-  color: #fff;
-}
-
-/* Bouton */
+/* Boutons standards */
 .blog-btn {
   background-color: rgba(15, 23, 51, 0.9);
   border-radius: 8px;
@@ -52,4 +33,35 @@
 
 .blog-btn:hover {
   background-color: rgba(15, 23, 51, 1);
+}
+
+/* --- Styles pour les boutons avec SVG --- */
+.btn-icon {
+  background: none;
+  border: none;
+  padding: 0.3rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: white; /* Couleur initiale du SVG */
+}
+
+.btn-icon svg {
+  /* width: 40px;  */
+  /* taille fixe, peut ajuster */
+  /* height: 40px; */
+  stroke: currentColor; /* Assure que les contours prennent la couleur */
+  fill: none; /* SVG sans remplissage */
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.btn-icon:hover {
+  color: orange; /* change la couleur des SVG au hover */
+  transform: scale(1.2); /* grossissement */
+}
+
+.btn-icon:hover svg {
+  stroke: currentColor; /* garde l'orange sur le SVG */
 }
