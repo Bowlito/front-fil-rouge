@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 export default function Inscription() {
 	const navigate = useNavigate();
 	const [users, setUsers] = useState([])
+	const [isSignedUp, setIsSignedUp] = useState(false)
 
 	const { handleSubmit, register, formState: { errors, isValid, isSubmitSuccessful }, reset, } = useForm({
 		resolver: yupResolver(userSchema),
@@ -20,13 +21,18 @@ export default function Inscription() {
 			.get(`/users`)
 			.then(res => setUsers(res.data))
 			.catch(() => setErreur("Liste temporairement indisponible"))
-	}, [users])
+	}, [])
+
+
 
 	function addUser(formData) {
 		axios
 			.post("/users/signUp", formData)
-			.then((res) => setUsers(res.data));
-		
+			.then((res) => {
+				setUsers(res.data),
+				setIsSignedUp(true)
+			});
+
 		// navigate("/");
 
 		reset();
@@ -36,6 +42,11 @@ export default function Inscription() {
 		<div className="container my-5 d-flex flex-column align-items-center text-light">
 			<h2 className="mb-4">Page d'inscription</h2>
 
+			{isSignedUp &&
+				<div className="alert alert-info" role="alert">
+					Inscription réussie
+				</div>
+			}
 
 			<div className="w-100" style={{ maxWidth: "400px" }}>
 				<form onSubmit={handleSubmit(addUser)} className="p-4 rounded shadow" style={{ backgroundColor: "rgba(15, 23, 51, 0.9)" }}
@@ -102,11 +113,7 @@ export default function Inscription() {
 					</button>
 				</form>
 			</div>
-			<ul>
-				{users.map((u, ind) =>
-					<li key={ind}>{u.nom}{u.prenom}</li>
-				)}
-			</ul>
+
 		</div>
 	);
 }
