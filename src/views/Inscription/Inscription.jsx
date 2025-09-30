@@ -19,8 +19,11 @@ export default function Inscription() {
 	useEffect(() => {
 		axios
 			.get(`/users`)
-			.then(res => setUsers(res.data))
+			.then(res => {setUsers(res.data),
+				setIsSignedUp(false)
+			})
 			.catch(() => setErreur("Liste temporairement indisponible"))
+
 	}, [])
 
 
