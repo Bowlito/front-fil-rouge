@@ -15,7 +15,7 @@ export default function Vignette() {
             {
                 vignettes.map((v, ind) =>
                     
-                    <div className="card card-hover p-1 rounded-4 m-5" style={{ width: "18rem", backgroundColor: " rgba(15, 23, 51, 0.9)"}} key={ind}>
+                    <div className="card card-hover p-1 rounded-4 m-5" style={{ width: "18rem", backgroundColor: "#eb7c05d0"}} key={ind}>
                         <Link className="btn text-light" to={`/${v.titre}`}>
                         <img  src={v.image} className="card-img-top rounded-4" alt={v.titre} />
                         <div className="card-body">

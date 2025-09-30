@@ -1,0 +1,5 @@
+.list-bg:hover{
+    background-color: #0F1733;
+}
+
+.form-control::placeholder { color: white; }
