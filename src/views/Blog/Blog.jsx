@@ -20,7 +20,7 @@ export default function Blog() {
             .get(`/publications`)
             .then(res => {
                 setPublications(res.data),
-                console.log(res.data);
+                    console.log(res.data);
 
             })
             .catch(() => setErreur("Liste des posts temporairement indisponible"));
@@ -31,16 +31,20 @@ export default function Blog() {
             .get(`/users`)
             .then(res => {
                 setUsers(res.data),
-                console.log(res.data);
+                    console.log(res.data);
 
             })
             .catch(() => setErreur("Liste des users temporairement indisponible"));
     }, []);
 
+
+
     return (
         <div className="container my-5 blog-container">
             <h2 className="text-light mb-4">Espace Blog</h2>
+
             <h3 className="text-light mb-5">Venez partager vos aventures !</h3>
+
             {isAuthenticated &&
                 <button className="blog-btn mb-5" onClick={() => navigate('/creer')}>
                     Créer une publication
@@ -48,21 +52,26 @@ export default function Blog() {
             }
 
 
-
             <div className="d-flex flex-column align-items-center gap-5">
                 {publications.map((p, ind) => (
 
+
+
+
                     <div className="card blog-card w-100 shadow-sm" key={ind} style={{ minWidth: "45%" }}>
                         <div className="row align-items-center">
+                            
 
                             <div className="col-10">
+                                Publié par
+                                <div className="m-2" style={{color: "orange", fontSize: "larger"}}> {users.find(u => u.id_users == p.id_users)?.nom} {users.find(u => u.id_users == p.id_users)?.prenom}</div>
                                 <img
                                     src={p.chemin_image}
                                     className="card-img-top blog-image"
                                     alt={p.titre}
                                 />
                                 <div className="card-body d-flex flex-column">
-                                    <h5 className="card-title">{p.titre}</h5>
+                                    <h5 className="card-title">{p.titre} </h5>
                                     <p className="card-text flex-grow-1">{p.corps}</p>
                                 </div>
                             </div>
@@ -107,8 +116,10 @@ export default function Blog() {
                             </div>
                         </div>
                     </div>
+
                 ))}
             </div>
+
 
 
         </div>
