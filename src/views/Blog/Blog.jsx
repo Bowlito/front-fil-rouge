@@ -13,17 +13,27 @@ export default function Blog() {
 
 
 
+
+
     useEffect(() => {
         axios
             .get(`/publications`)
-            .then(res => setPublications(res.data))
+            .then(res => {
+                setPublications(res.data),
+                console.log(res.data);
+
+            })
             .catch(() => setErreur("Liste des posts temporairement indisponible"));
     }, []);
 
     useEffect(() => {
         axios
             .get(`/users`)
-            .then(res => setUsers(res.data))
+            .then(res => {
+                setUsers(res.data),
+                console.log(res.data);
+
+            })
             .catch(() => setErreur("Liste des users temporairement indisponible"));
     }, []);
 
@@ -36,6 +46,8 @@ export default function Blog() {
                     Créer une publication
                 </button>
             }
+
+
 
             <div className="d-flex flex-column align-items-center gap-5">
                 {publications.map((p, ind) => (

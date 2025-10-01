@@ -29,7 +29,7 @@ export default function Commentaires({ postId }) {
                         commentaires.map((c, ind) => (
                             <li key={ind} className="list-group-item">
                                 <div className="d-flex justify-content-between">
-                                    <strong>{c.nom} {c.prenom || "Anonyme"}</strong>
+                                    <strong>{c.nom} {c.prenom }</strong>
                                     <small className="text-muted">{formatDateTime(c.created_at)}</small>
                                 </div>
                                 <p className="mb-0">{c.corps || "Aucun contenu"}</p>

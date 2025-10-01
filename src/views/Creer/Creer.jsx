@@ -28,9 +28,6 @@ export default function Creer() {
         
         console.log("LES DATA DU FORM : ", formData);
         
-
-
-        
         
         axios
 
