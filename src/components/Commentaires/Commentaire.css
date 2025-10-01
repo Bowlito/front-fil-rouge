@@ -1,0 +1,17 @@
+.comments-card {
+    background-color: rgba(15, 23, 51, 0.9);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #f1f1f1;
+}
+
+.comments-card .list-group-item {
+    background: transparent;
+    color: #ddd;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 0.8rem 0;
+}
+
+.comments-card .list-group-item strong {
+    color: #ff8c42;
+}

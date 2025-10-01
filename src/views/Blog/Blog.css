@@ -28,11 +28,14 @@
 .blog-btn {
   background-color: rgba(15, 23, 51, 0.9);
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+
+  
 }
 
 .blog-btn:hover {
-  background-color: rgba(15, 23, 51, 1);
+  transition: transform 0.5s ease, color 0.5s ease;
+  transform: scale(1.2);
+  stroke: currentColor;
 }
 
 /* --- Styles pour les boutons avec SVG --- */
@@ -47,6 +50,7 @@
   transition: transform 0.2s ease, color 0.2s ease;
   color: white; /* Couleur initiale du SVG */
 }
+
 
 .btn-icon svg {
   /* width: 40px;  */

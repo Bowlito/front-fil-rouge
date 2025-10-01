@@ -1,0 +1,63 @@
+
+.post-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+
+.post-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: rgba(15, 23, 51, 0.9); 
+    color: #f1f1f1;
+}
+
+.post-card .card-body {
+    padding: 1.5rem;
+}
+
+.post-image {
+    max-height: 400px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(15, 23, 51, 0.9);;
+}
+
+
+.comment-form-card {
+    background-color: rgba(15, 23, 51, 0.9);;
+    border-radius: 10px;
+    border: 1px solid rgba(15, 23, 51, 0.9);;
+    color: #f1f1f1;
+}
+
+.comment-form-card textarea {
+    resize: none;
+    background-color: rgba(15, 23, 51, 0.9);;
+    color: #f1f1f1;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+}
+
+.comment-form-card textarea:focus {
+    outline: none;
+    background-color: rgba(16, 20, 34, 0.9);
+    color: white;
+    border-color: #ff8c42;
+    box-shadow: 0 0 5px rgba(255,140,66,0.6);
+}
+
+.comment-form-card button {
+    background-color: #ff8c42;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.comment-form-card button:hover {
+    background-color: #ff6a00;
+}
+
+/* Section commentaires */
+
