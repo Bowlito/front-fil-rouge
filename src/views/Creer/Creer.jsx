@@ -22,7 +22,6 @@ export default function Creer() {
         
         formData.id_users = user.id
         formData.chemin_image = `/${imgPath}`
-        formData.userName = user.prenom
         //formData.chemin_image = FileList.chemin_image.name
         console.log(formData.chemin_image[0].name);
         

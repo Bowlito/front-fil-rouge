@@ -69,3 +69,13 @@
 .btn-icon:hover svg {
   stroke: currentColor; /* garde l'orange sur le SVG */
 }
+
+.suppr{
+  border: none;
+}
+
+.suppr:hover{
+  border: none;
+  transition: transform 0.2s ease, color 0.2s ease;
+  transform: scale(1.2);
+}

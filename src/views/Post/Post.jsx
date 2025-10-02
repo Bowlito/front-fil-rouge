@@ -37,7 +37,7 @@ export default function Post() {
         <div>
             <div className="container my-5 post-container">
                 <div className="card post-card shadow-sm w-100" style={{ minWidth: "60%" }}>
-                    <div className="mb-2">Publié par <span style={{color: "orange", fontSize: "larger"}}>{auteur.prenom} {auteur.nom}</span></div>
+                    <div className="mb-2">Publié par <span style={{color: "orange", fontSize: "larger"}}>{auteur.nom} {auteur.prenom} </span></div>
                     <img
                         src={ post.chemin_image || "/thumbnail_image0.jpg"}
                         className="card-img-top post-image"
