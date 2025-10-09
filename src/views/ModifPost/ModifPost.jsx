@@ -30,23 +30,24 @@ export default function ModifPost() {
 
     function modifier(formData) {
 
-        
-        
-        const imgPath = formData.chemin_image[0]?.name
-        
+
         formData.id_users = user.id
-        
-        if (!formData.chemin_image) {
-            formData.chemin_image = post.chemin_image
-        } else { formData.chemin_image = `/${imgPath}` }
+        formData.id_publication = post.id_publication
+
+        if (formData.chemin_image?.[0]) {
+            const imgPath = formData.chemin_image[0].name;
+            formData.chemin_image = `/${imgPath}`;
+        } else {
+            formData.chemin_image = post.chemin_image;
+        }
 
         if (!formData.titre) {
-             formData.titre = post.titre
-        } 
+            formData.titre = post.titre
+        }
 
         if (!formData.corps) {
             formData.corps = post.corps
-        } 
+        }
 
         axios
             .put(`/publications/modify`, formData)
@@ -81,7 +82,7 @@ export default function ModifPost() {
                     <div className="mb-3">
                         {post.chemin_image && (
                             <div className="mb-2">
-                                <p>Fichier actuel :</p>
+                                <p>Fichier actuel : { } </p>
                                 <img src={post.chemin_image} alt="Image actuelle" className="img-thumbnail"
                                     style={{ maxWidth: "20rem" }} />
                             </div>

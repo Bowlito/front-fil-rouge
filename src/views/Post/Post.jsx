@@ -8,22 +8,22 @@ import Commentaires from "../../components/Commentaires/Commentaires.jsx";
 import { useForm } from "react-hook-form";
 
 export default function Post() {
-
-    const { handleSubmit, register, formState: { errors, isValid, isSubmitSuccessful }, reset, } = useForm({
-        // resolver: yupResolver(userSchema),
-        mode: "onChange",
-    }
-    );
-
-    const { user } = useContext(GlobalContext)
+    const { handleSubmit, register, reset } = useForm({ mode: "onChange" });
+    const { user, isAuthenticated } = useContext(GlobalContext);
     const { id } = useParams();
-    const [post, setPost] = useState({});
-    const [auteur, setAuteur] = useState({})
-    const { isAuthenticated } = useContext(GlobalContext);
     const navigate = useNavigate();
+    const [post, setPost] = useState({});
+    const [auteur, setAuteur] = useState({});
+    const [commentaires, setCommentaires] = useState([]);
 
+    // Vérifier l'authentification
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/connexion');
+        }
+    }, [isAuthenticated, navigate]);
 
-
+    // Charger le post et son auteur
     useEffect(() => {
         axios.get(`/publications/${id}`)
             .then(res => {
@@ -32,41 +32,51 @@ export default function Post() {
             })
             .then(resUser => setAuteur(resUser.data))
             .catch(err => console.error(err));
-    }, []);
+    }, [id]);
 
+
+    // Charger les commentaires
+    const loadCommentaires = () => {
+        axios.get(`/publications/${id}/commentaires`)
+            .then(res => setCommentaires(res.data))
+            .catch(err => {
+                console.error("Erreur lors du chargement des commentaires :", err);
+                setCommentaires([]);
+            });
+    };
 
     useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/connexion');
-        }
-    }, [isAuthenticated, navigate]);
+        loadCommentaires();
+    }, [id]);
 
-
-
+    // Ajouter un commentaire
     function commenter(formData) {
+        if (!formData.corps || formData.corps.trim() === "") {
+            alert("Le commentaire ne peut pas être vide !");
+            return;
+        }
 
-        formData.id_users = user.id
-        formData.id_publication = id
-        axios
-            .post('/commentaires', formData)
-            .then(res => {
-                console.log(user);
+        formData.id_users = user.id;
+        formData.id_publication = id;
 
-                console.log("commentaire ajouté");
-                console.log(res.data);
-
-
-
-
+        axios.post('/commentaires', formData)
+            .then(() => {
+                reset();
+                loadCommentaires(); // recharger tous les commentaires
             })
-        reset()
+            .catch(err => console.error("Erreur ajout commentaire :", err));
     }
 
     return (
         <div>
             <div className="container my-5 post-container">
+                {/* Post principal */}
                 <div className="card post-card shadow-sm w-100" style={{ minWidth: "60%" }}>
-                    <div className="mb-2">Publié par <span style={{ color: "orange", fontSize: "larger" }}> {auteur.nom} {auteur.prenom} </span></div>
+                    <div className="mb-2">
+                        Publié par <span style={{ color: "orange", fontSize: "larger" }}>
+                            {auteur.nom} {auteur.prenom}
+                        </span>
+                    </div>
                     <img
                         src={post.chemin_image || "/thumbnail_image0.jpg"}
                         className="card-img-top post-image"
@@ -81,23 +91,28 @@ export default function Post() {
                     </div>
                 </div>
 
-
+                {/* Formulaire ajout commentaire */}
                 <div className="card comment-form-card shadow-sm mt-4 p-3">
                     <h5 className="mb-3">Ajouter un commentaire</h5>
-
                     <form className="d-flex gap-2" onSubmit={handleSubmit(commenter)}>
-                        <textarea className="form-control" placeholder="Écrivez votre commentaire..." rows="3"
-                            required {...register("corps")}></textarea>
+                        <textarea
+                            className="form-control"
+                            placeholder="Écrivez votre commentaire..."
+                            rows="3"
+                            required
+                            {...register("corps")}
+                        ></textarea>
                         <button className="btn btn-primary">Envoyer</button>
                     </form>
-
                 </div>
 
-
-                <Commentaires postId={id} />
-
-
+                {/* Affichage des commentaires */}
+                <Commentaires
+                    commentaires={commentaires}
+                    currentUser={user}
+                    reloadCommentaires={loadCommentaires} // passer la fonction pour reload
+                />
             </div>
         </div>
-    )
+    );
 }

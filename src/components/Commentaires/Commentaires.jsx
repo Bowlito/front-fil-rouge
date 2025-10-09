@@ -1,77 +1,92 @@
-import { useContext, useEffect, useState } from "react";
-import axios from "../../../config/Axios_config/axios.config.js";
+import React, { useState } from "react";
 import { formatDateTime } from "../../../config/date.utils.js";
+import axios from "../../../config/Axios_config/axios.config.js";
 import "./Commentaire.css";
-import { GlobalContext } from "../../contexts/GlobalContext.jsx";
 
-export default function Commentaires({ postId }) {
+export default function Commentaires({ commentaires, currentUser, reloadCommentaires }) {
+    const [iMod, setImod] = useState(null);
+    const [editedText, setEditedText] = useState("");
 
-    const { user } = useContext(GlobalContext)
-    const [erreur, setErreur] = useState("");
 
-    const [commentaires, setCommentaires] = useState([]);
+    const supprimerCom = (comId) => {
+        axios.delete(`/commentaires/${comId}`)
+            .then(() => reloadCommentaires())
+            .catch(err => console.error("Erreur suppression commentaire :", err));
+    };
 
-    useEffect(() => {
-        if (!postId) return;
 
-        axios
-            .get(`/publications/${postId}/commentaires`)
-            .then(res => 
-                setCommentaires(res.data)
-                
-                
-            )
-            .catch(err => {
-                console.error("Erreur lors du chargement des commentaires :", err);
-                setCommentaires([]);
-            });
-    }, [postId, commentaires]);
-
-    function supprimerCom(comId){
-        axios
-            .delete(`/commentaires/${comId}`)
-            .then(()=>{
-                setCommentaires(coms => coms.filter((c) => c.id_com !== comId))
-                console.log("Commentaire supprimé avec succès")
+    const modifierCom = (comId) => {
+        if (!editedText || editedText.trim() === "") {
+            alert("Le commentaire ne peut pas être vide !");
+            return;
+        }
+        axios.put(`/commentaires`, { id_com: comId, corps: editedText })
+            .then(() => {
+                setImod(null);
+                reloadCommentaires();
             })
-            .catch((erreur) => {
-                console.error("Erreur de suppression :", erreur)
-                setErreur("Impossible de supprimer ce commentaire pour le moment.");
-            });
-    }
+            .catch(err => console.error("Erreur modification commentaire :", err));
+    };
 
     return (
-        <div>
-            <h2>Les commentaires</h2>
+        <div className="card comments-card shadow-sm mt-4 p-3">
+            <h5 className="mb-3">Commentaires</h5>
+            <ul className="list-group list-group-flush">
+                {commentaires.length > 0 ? (
+                    commentaires.map(c => (
+                        <li key={c.id_com} className="list-group-item text-start">
+                            <div className="d-flex justify-content-between mb-2">
+                                <strong>{c.nom} {c.prenom}</strong>
+                                <small className="text-warning">{formatDateTime(c.created_at)}</small>
+                            </div>
 
-            <div className="card comments-card shadow-sm mt-4 p-3">
-                <h5 className="mb-3">Commentaires</h5>
-                <ul className="list-group list-group-flush">
-                    {commentaires.length > 0 ? (
-                        commentaires.map((c, ind) => (
-
-
-                            <li key={ind} className="list-group-item">
-                                <div className="d-flex justify-content-between">
-                                    <strong>{c.nom} {c.prenom}</strong>
-                                    <small className="text-warning">{formatDateTime(c.created_at)}</small>
-                                </div>
+                            {iMod === c.id_com ? (
+                                <>
+                                    <textarea
+                                        className="form-control txtForm mb-2"
+                                        value={editedText}
+                                        onChange={e => setEditedText(e.target.value)}
+                                        autoFocus
+                                    />
+                                    <div className="d-flex justify-content-end">
+                                        <button className="btn btn-primary m-2" onClick={() => modifierCom(c.id_com)}>
+                                            Modifier
+                                        </button>
+                                        <button className="btn btn-secondary m-2" onClick={() => setImod(null)}>
+                                            Annuler
+                                        </button>
+                                    </div>
+                                </>
+                            ) : (
                                 <p className="mb-0">{c.corps || "Aucun contenu"}</p>
-                                {(user?.id == c?.id_users|| user?.role == "admin") &&
-                                    <button onClick={() => supprimerCom(c.id_com)}>Supprimer</button>
-                                }
-                            </li>
+                            )}
+                            <div className="mt-3 d-flex justify-content-end">
+                                {currentUser?.id === c?.id_users && iMod !== c.id_com && (
+                                    <button
+                                        className="btn btn-primary m-2"
+                                        onClick={() => { setImod(c.id_com); setEditedText(c.corps); }}
+                                    >
+                                        Éditer
+                                    </button>
+                                )}
+                                {(currentUser?.id === c?.id_users || currentUser?.role === "admin") && (
+                                    <button
+                                        className="btn btn-danger m-2"
+                                        onClick={() => supprimerCom(c.id_com)}
+                                    >
+                                        Supprimer
+                                    </button>
+                                )}
+                            </div>
 
-                        ))
-                    ) : (
-                        <li className="list-group-item text-light">
-                            Aucun commentaire pour ce post.
                         </li>
-
-                    )}
-                </ul>
-
-            </div>
+                    ))
+                ) : (
+                    <li className="list-group-item text-light">
+                        Aucun commentaire pour ce post.
+                    </li>
+                )}
+            </ul>
         </div>
-    )
+    );
 }

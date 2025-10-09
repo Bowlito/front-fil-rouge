@@ -1,10 +1,4 @@
-body {
-  width: 100%;
-  min-height: auto; /* ou height: auto */ /* espace pour respirer */
-  background: url('/background_smaller.png') no-repeat center center;
-  background-size: cover;
-  background-position: bottom;
-}
+
 
 .text-shadow {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
