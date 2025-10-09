@@ -41,7 +41,11 @@ export default function Creer() {
     }
 
     return (
+
+        
+
         <div>
+            
             <h2 className="mt-3">Créer ta publication</h2>
             <div className="d-flex justify-content-center mt-5">
                 <form className="was-validated d-flex flex-column gap-5" onSubmit={handleSubmit(addPost)}>
@@ -68,5 +72,6 @@ export default function Creer() {
             </div>
 
         </div>
+        
     )
 }

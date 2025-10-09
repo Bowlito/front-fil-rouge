@@ -15,13 +15,13 @@ export default function Post() {
     }
     );
 
-    const {user} = useContext(GlobalContext)
+    const { user } = useContext(GlobalContext)
     const { id } = useParams();
     const [post, setPost] = useState({});
     const [auteur, setAuteur] = useState({})
     const { isAuthenticated } = useContext(GlobalContext);
     const navigate = useNavigate();
-    
+
 
 
     useEffect(() => {
@@ -51,15 +51,15 @@ export default function Post() {
             .post('/commentaires', formData)
             .then(res => {
                 console.log(user);
-                
+
                 console.log("commentaire ajouté");
                 console.log(res.data);
-                
-            
-                
-                
+
+
+
+
             })
-            reset()
+        reset()
     }
 
     return (
@@ -86,12 +86,8 @@ export default function Post() {
                     <h5 className="mb-3">Ajouter un commentaire</h5>
 
                     <form className="d-flex gap-2" onSubmit={handleSubmit(commenter)}>
-                        <textarea
-                            className="form-control"
-                            placeholder="Écrivez votre commentaire..."
-                            rows="3"
-                            required
-                            {...register("corps")}></textarea>
+                        <textarea className="form-control" placeholder="Écrivez votre commentaire..." rows="3"
+                            required {...register("corps")}></textarea>
                         <button className="btn btn-primary">Envoyer</button>
                     </form>
 
@@ -99,7 +95,7 @@ export default function Post() {
 
 
                 <Commentaires postId={id} />
-                
+
 
             </div>
         </div>

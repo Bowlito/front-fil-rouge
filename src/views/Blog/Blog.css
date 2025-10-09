@@ -70,11 +70,11 @@
   stroke: currentColor; /* garde l'orange sur le SVG */
 }
 
-.suppr{
+.tool{
   border: none;
 }
 
-.suppr:hover{
+.tool:hover{
   border: none;
   transition: transform 0.2s ease, color 0.2s ease;
   transform: scale(1.2);
