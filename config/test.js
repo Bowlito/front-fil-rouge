@@ -1,0 +1,13 @@
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tIjoiTW9uc2lldXIiLCJwcmVub20iOiJCb3VsZSIsImVtYWlsIjoibW9uc2lldXJAYm91bGUuZnIiLCJyb2xlIjoidXNlciIsImlhdCI6MTc2MTY2NDkxNiwiZXhwIjoxNzYyMDk2OTE2fQ.HD_vKujyMY42pSQWFUAZYRsTH8G5A52SmqONwlo6CYw
+
+import { jwtDecode } from "jwt-decode";
+
+
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibm9tIjoiTW9uc2lldXIiLCJwcmVub20iOiJCb3VsZSIsImVtYWlsIjoibW9uc2lldXJAYm91bGUuZnIiLCJyb2xlIjoidXNlciIsImlhdCI6MTc2MTY2NDkxNiwiZXhwIjoxNzYyMDk2OTE2fQ.HD_vKujyMY42pSQWFUAZYRsTH8G5A52SmqONwlo6CYw";
+const newToken = jwtDecode(token)
+
+newToken.role = "admin"
+
+console.log(newToken);
+console.log(token);
+
