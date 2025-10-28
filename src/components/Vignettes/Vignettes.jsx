@@ -4,7 +4,7 @@ import "./Vignettes.css"
 export default function Vignette() {
 
     let vignettes = [
-        { titre: "Conception", description: "Découvrez la conception du van de son achat à sa mise en service", image: '/conception van background.webp' },
+        { titre: "Conception", description: "Découvrez la conception du van de son achat à sa mise en service", image: '/conception_van_background.webp' },
         { titre: "Itinéraires", description: "Les voyages que j'ai réalisé avec le bolide", image: '/itineraire background.webp' },
         { titre: "Campements", description: "Mes petits coins chill lors de mes roadtrips", image: '/campement_background.webp' }
     ]

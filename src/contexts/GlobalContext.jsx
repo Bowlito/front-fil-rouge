@@ -1,19 +1,24 @@
-import { createContext, useState } from "react";
+import {jwtDecode} from "jwt-decode";
+import { createContext, useEffect, useState } from "react";
 
 export const GlobalContext = createContext()
 
 
 export const Provider = ({ children }) => {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false || localStorage.getItem('username'))
-    const [user, setUser] = useState(null)
+    const token = localStorage.getItem("token");
+    const decodedUser = token ? jwtDecode(token) : null
+    const [user, setUser] = useState(decodedUser)
+    const [isAuthenticated, setIsAuthenticated] = useState(!!token)
+
+
+
+
 
     return (
-        <GlobalContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated}}>
+        <GlobalContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
             {children}
         </GlobalContext.Provider>
-        // <GlobalContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser }}>
-        //     {children}
-        // </GlobalContext.Provider>
+
     )
 }

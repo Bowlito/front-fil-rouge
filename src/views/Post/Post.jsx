@@ -1,6 +1,6 @@
 import axios from "../../../config/Axios_config/axios.config.js";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import './Post.css';
 import { formatDateTime } from "../../../config/date.utils.js";
 import { GlobalContext } from "../../contexts/GlobalContext.jsx";
@@ -35,7 +35,7 @@ export default function Post() {
     }, [id]);
 
 
-    // Charger les commentaires
+    //Pour charger les commentaires
     const loadCommentaires = () => {
         axios.get(`/publications/${id}/commentaires`)
             .then(res => setCommentaires(res.data))
@@ -62,7 +62,7 @@ export default function Post() {
         axios.post('/commentaires', formData)
             .then(() => {
                 reset();
-                loadCommentaires(); // recharger tous les commentaires
+                loadCommentaires();
             })
             .catch(err => console.error("Erreur ajout commentaire :", err));
     }
@@ -72,6 +72,13 @@ export default function Post() {
             <div className="container my-5 post-container">
                 {/* Post principal */}
                 <div className="card post-card shadow-sm w-100" style={{ minWidth: "60%" }}>
+                    <Link className="align-self-start btn text-light" to={"/blog"}>
+                    
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" className="bi bi-caret-left-square-fill m-1" viewBox="0 0 16 16">
+                            <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm10.5 10V4a.5.5 0 0 0-.832-.374l-4.5 4a.5.5 0 0 0 0 .748l4.5 4A.5.5 0 0 0 10.5 12" />
+                        </svg>
+                        Retour blog
+                    </Link>
                     <div className="mb-2">
                         Publié par <span style={{ color: "orange", fontSize: "larger" }}>
                             {auteur.nom} {auteur.prenom}
@@ -110,7 +117,7 @@ export default function Post() {
                 <Commentaires
                     commentaires={commentaires}
                     currentUser={user}
-                    reloadCommentaires={loadCommentaires} // passer la fonction pour reload
+                    reloadCommentaires={loadCommentaires}
                 />
             </div>
         </div>

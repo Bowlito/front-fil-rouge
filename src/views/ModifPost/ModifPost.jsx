@@ -16,6 +16,7 @@ export default function ModifPost() {
     const { user } = useContext(GlobalContext)
     const navigate = useNavigate()
     const [post, setPost] = useState({});
+    
 
 
     useEffect(() => {
@@ -90,6 +91,9 @@ export default function ModifPost() {
                         <input type="file" className="form-control" aria-label="file example" {...register("chemin_image")}
                             required={!post.chemin_image}
                         />
+                        {
+
+                        }
                     </div>
 
 

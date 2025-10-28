@@ -26,9 +26,8 @@ function login(data) {
         .then(res => {
             console.log("Connexion réussie", res.data);
             setUser(res.data);
-            localStorage.setItem('prenom', res.data.prenom)
-            localStorage.setItem('nom', res.data.nom)
-            console.log(localStorage.nom);
+            localStorage.setItem('token', res.data.token)
+            console.log(localStorage.token);
             
             setIsAuthenticated(true)
             navigate('/');

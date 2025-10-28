@@ -9,7 +9,9 @@ export default function Blog() {
     const { isAuthenticated, user } = useContext(GlobalContext)
     const [users, setUsers] = useState([]);
     const [erreur, setErreur] = useState("");
+    const [favIt, setFavIt] = useState(false)
     const navigate = useNavigate()
+
 
 
 
@@ -55,6 +57,13 @@ export default function Blog() {
 
     }
 
+    const fav = () => {
+        console.log(favIt);
+        !favIt ? setFavIt(true) : setFavIt(false)
+        
+        
+    }
+
 
 
     return (
@@ -70,6 +79,7 @@ export default function Blog() {
             }
 
             <>
+
                 {publications.length == 0 &&
                     <h2>Aucune publication pour le moment</h2>
                 }
@@ -104,23 +114,39 @@ export default function Blog() {
                                 <div className="col-2 d-flex flex-column justify-content-center align-items-center gap-4">
 
                                     {/* Bouton Liker */}
-
-                                    <button className="btn btn-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" width="50" height="48">
-                                            <path
-                                                d="M4 26 L4 18 Q4 12 10 12 L40 12 Q46 12 50 18 L58 26 Q60 28 60 32 L60 36 Q60 40 56 40 L8 40 Q4 40 4 36 Z"
-                                                fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"
-                                            />
-                                            <rect x="10" y="16" width="10" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.6" />
-                                            <rect x="22" y="16" width="12" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.6" />
-                                            <rect x="36" y="16" width="10" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.6" />
-                                            <circle cx="16" cy="38" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                                            <circle cx="46" cy="38" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
-                                        </svg>
-                                    </button>
+                                    {!favIt &&
+                                        <button className="btn btn-icon" onClick={fav}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" width="50" height="48">
+                                                <path
+                                                    d="M4 26 L4 18 Q4 12 10 12 L40 12 Q46 12 50 18 L58 26 Q60 28 60 32 L60 36 Q60 40 56 40 L8 40 Q4 40 4 36 Z"
+                                                    fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"
+                                                />
+                                                <rect x="10" y="16" width="10" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.6" />
+                                                <rect x="22" y="16" width="12" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.6" />
+                                                <rect x="36" y="16" width="10" height="8" rx="1" fill="none" stroke="currentColor" strokeWidth="1.6" />
+                                                <circle cx="16" cy="38" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
+                                                <circle cx="46" cy="38" r="4" fill="none" stroke="currentColor" strokeWidth="2" />
+                                            </svg>
+                                        </button>
+                                    }
+                                    {favIt &&
+                                        <button className="btn btn-icon" onClick={fav}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 48" width="50" height="48">
+                                                <path
+                                                    d="M4 26 L4 18 Q4 12 10 12 L40 12 Q46 12 50 18 L58 26 Q60 28 60 32 L60 36 Q60 40 56 40 L8 40 Q4 40 4 36 Z"
+                                                    fill="none" stroke="orange" strokeWidth="2" strokeLinejoin="round"
+                                                />
+                                                <rect x="10" y="16" width="10" height="8" rx="1" fill="none" stroke="orange" strokeWidth="1.6" />
+                                                <rect x="22" y="16" width="12" height="8" rx="1" fill="none" stroke="orange" strokeWidth="1.6" />
+                                                <rect x="36" y="16" width="10" height="8" rx="1" fill="none" stroke="orange" strokeWidth="1.6" />
+                                                <circle cx="16" cy="38" r="4" fill="none" stroke="orange" strokeWidth="2" />
+                                                <circle cx="46" cy="38" r="4" fill="none" stroke="orange" strokeWidth="2" />
+                                            </svg>
+                                        </button>
+                                    }
 
                                     {/* Bouton commenter */}
-                        
+
 
 
                                     <Link to={`/post/${p.id_publication}`} className="btn-icon">
