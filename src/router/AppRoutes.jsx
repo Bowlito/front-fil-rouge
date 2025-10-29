@@ -31,7 +31,7 @@ export default function AppRoutes() {
 
 
 
-            <Route path="/users" element={ user?.role === "admin" ? <Users /> : <Navigate to={"/"} />} />
+            <Route path="/users" element={user?.role === "admin" ? <Users /> : <Navigate to={"/"} />} />
 
 
             <Route path="/post/:id" element={<Post />} />

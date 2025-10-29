@@ -35,6 +35,7 @@ export default function Inscription() {
 			.then((res) => {
 				setUsers(res.data),
 				setIsSignedUp(true)
+				setTimeout(() => setIsSignedUp(false), 3000);
 			});
 
 		// navigate("/");
@@ -46,11 +47,11 @@ export default function Inscription() {
 		<div className="container my-5 d-flex flex-column align-items-center text-light">
 			<h2 className="mb-4">Page d'inscription</h2>
 
-			{isSignedUp &&
-				<div className="alert alert-info" role="alert">
+			
+				<div className={`alert alert-info ${isSignedUp ? "" : "hidden"}`} role="alert">
 					Inscription réussie
 				</div>
-			}
+			
 
 			<div className="w-100" style={{ maxWidth: "400px" }}>
 				<form onSubmit={handleSubmit(addUser)} className="p-4 rounded shadow" style={{ backgroundColor: "rgba(15, 23, 51, 0.9)" }}

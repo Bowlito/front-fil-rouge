@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import "./Connexion.css"
 import userSchema from "../../validators/users.validator.js";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ import { GlobalContext } from "../../contexts/GlobalContext.jsx"
 
 export default function Connexion() {
     const navigate = useNavigate();
-
+    const [failed, setFailed] = useState(false)
     const { setUser } = useContext(GlobalContext)
     const { setIsAuthenticated } = useContext(GlobalContext)
     const { handleSubmit, register, formState: { errors, isValid, isSubmitSuccessful }, reset, } = useForm({
@@ -18,28 +18,36 @@ export default function Connexion() {
         mode: "onChange",
     });
 
-function login(data) {
-    console.log("BOUTON", data);
+    function login(data) {
+        console.log("BOUTON", data);
 
-    axios
-        .post("/users/login", { email: data.email, password: data.password })
-        .then(res => {
-            console.log("Connexion réussie", res.data);
-            setUser(res.data);
-            localStorage.setItem('token', res.data.token)
-            console.log(localStorage.token);
-            
-            setIsAuthenticated(true)
-            navigate('/');
-        })
-        .catch(err => console.error(err.response?.data || err));
-}
+        axios
+            .post("/users/login", { email: data.email, password: data.password })
+            .then(res => {
+                console.log("Connexion réussie", res.data);
+                setUser(res.data);
+                localStorage.setItem('token', res.data.token)
+                console.log(localStorage.token);
+
+                setIsAuthenticated(true)
+                navigate('/');
+            })
+            .catch(err => {
+                console.error(err.response?.data || err);
+                setFailed(true)
+                setTimeout(() => setFailed(false), 3000);
+            });
+    }
 
 
     return (
         <div className="container my-5 d-flex flex-column align-items-center text-light">
             <h2 className="mb-4">Page de Connexion</h2>
 
+            <div className={`alert alert-danger ${failed ? "" : "hidden"}`} role="alert">
+                Identifiants incorrects
+            </div>
+            
             <div className="w-100" style={{ maxWidth: '400px' }}>
                 <form onSubmit={handleSubmit(login)} className="p-4 rounded shadow" style={{ backgroundColor: "rgba(15, 23, 51, 0.9)" }}>
                     <div className="mb-3">
@@ -55,6 +63,10 @@ function login(data) {
                     <button type="submit" className="btn text-light w-100 mt-3 p-3 btn-hover" style={{ backgroundColor: "rgba(139, 160, 236, 0.9)", borderRadius: '8px' }}>Se connecter</button>
                 </form>
             </div>
+
+
+
+
         </div>
     )
 }
