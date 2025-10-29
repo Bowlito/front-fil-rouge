@@ -10,10 +10,10 @@ export default function Home() {
     const{user} = useContext(GlobalContext)
     return (
         <>
-            <h1 className="mt-5 text-shadow fw-bold" style={{color: "#EB7D05"}}>Bienvenue sur Tripster {user?.prenom}</h1>
+            <h1 className="mt-5 text-shadow fw-bolder russo" style={{color: "#EB7D05"}}>Bienvenue sur Tripster {user?.prenom}</h1>
 
-            <h2 className="mt-5 text-shadow fw-bold" style={{color: "#EB7D05"}}>Ce blog est dédié au partage de mes aventures en roadtrip avec mon van.</h2>
-            <h2 className="m-5 text-shadow fw-bold" style={{color: "#EB7D05"}}>Venez découvrir mes roadtrips !</h2>
+            <h2 className="mt-5 text-shadow fw-bolder russo" style={{color: "#EB7D05"}}>Ce blog est dédié au partage de mes aventures en roadtrip avec mon van</h2>
+            <h2 className="m-5 text-shadow fw-bolder russo" style={{color: "#EB7D05"}}>Venez découvrir mes roadtrips !</h2>
 
             <div className="row gap-5 justify-content-center mt-5 w-100">
 

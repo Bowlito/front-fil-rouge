@@ -76,7 +76,7 @@ export default function Header() {
 				</ul>
 			</div>
 			{user &&
-				<div style={{ color: "#ff8c42" }}>
+				<div style={{ color: "#ffffffff" }}>
 					Tripster : {user?.nom} {user?.prenom}
 				</div>
 			}

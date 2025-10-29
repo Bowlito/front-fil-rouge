@@ -1,49 +1,67 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import "./Conception.css";
 
 export default function Conception() {
-    return (
-        <>
-            <h1 className="m-5">Conception du van</h1>
+  // on garde l’état de chaque carte individuellement
+  const [flippedCards, setFlippedCards] = useState([]);
 
-            <div className="d-flex justify-content-center">
+  const cards = [
+    { 
+      titre: "Le modèle", 
+      img: "/scudo.png", 
+      detail: { modèle: "Fiat Scudo", année: "1998", capacité: "10m³" }
+    },
+    { 
+      titre: "Les matériaux", 
+      img: "/armaflex.jpg", 
+      detail: { isolation: "Armaflex", type: "Résistant à l’humidité" }
+    },
+    { 
+      titre: "L’aménagement", 
+      img: "/amenagement.png", 
+      detail: { placards: "Bois clair", lits: "Convertible 2 places" }
+    }
+  ];
 
-                <div className="card-group row-sm gap-5">
-                    <div className="blog-card text-light border-light col-sm p-3">
+  const handleFlip = (index) => {
+    setFlippedCards((prev) =>
+      prev.includes(index)
+        ? prev.filter((i) => i !== index) 
+        : [...prev, index] 
+    );
+  };
 
-                        <img src="/scudo.png" className="card-img-top p-2" alt="scudo" />
-                        <div className="card-body p-2">
-                            <h6 className="card-title">Le modèle</h6>
+  return (
+    <div className="conception-page text-light">
+      <h1 className="conception-title">Conception du van</h1>
 
-                        </div>
-                        <div className="card-footer">
-                            <Link className="text-light"><small>Voir le détail</small></Link>
-                        </div>
-                    </div>
+      <div className="conception-container">
+        {cards.map((card, index) => (
+          <div 
+            key={index} 
+            className={`conception-card ${flippedCards.includes(index) ? "is-flipped" : ""}`}
+            onClick={() => handleFlip(index)}
+          >
+            <div className="conception-inner">
+              <div className="conception-front">
+                <img src={card.img} alt={card.titre} className="conception-img" />
+                <h4 className="conception-card-title">{card.titre}</h4>
+              </div>
 
-                    <div className="blog-card text-light border-light col-sm p-3">
-                        <img src="/armaflex.jpg" className="card-img-top p-2" alt="armaflex" />
-                        <div className="card-body p-2">
-                            <h6 className="card-title">Les matériaux</h6>
-
-                        </div>
-                        <div className="card-footer">
-                            <Link className="text-light"><small>Voir le détail</small></Link>
-                        </div>
-                    </div>
-
-                    <div className="blog-card text-light border-light col-sm p-3">
-                        <img src="..." className="card-img-top p-2" alt="..." />
-                        <div className="card-body p-2">
-                            <h6 className="card-title">L'aménagement</h6>
-                            
-                        </div>
-                        <div className="card-footer">
-                            <Link className="text-light"><small>Voir le détail</small></Link>
-                        </div>
-                    </div>
-                </div>
+              <div className="conception-back">
+                <h5 className="conception-detail-title">Détails</h5>
+                <ul className="conception-list">
+                  {Object.entries(card.detail).map(([key, value]) => (
+                    <li key={key}>
+                      <strong>{key} :</strong> {value}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-
-        </>
-    )
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
