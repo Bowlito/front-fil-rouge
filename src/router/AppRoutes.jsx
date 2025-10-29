@@ -14,20 +14,26 @@ import Users from "../views/users/Users"
 
 export default function AppRoutes() {
 
-    const { isAuthenticated } = useContext(GlobalContext)
-    
+    const { isAuthenticated, user } = useContext(GlobalContext)
+
+
 
     return (
         <Routes>
             <Route path="/" element={<Home />} />
 
             <Route path="/connexion" element={isAuthenticated ? <Navigate to={"/"} /> : <Connexion />} />
-            <Route path="/inscription" element={isAuthenticated ? <Navigate to={"/"} />: <Inscription />} />
+            <Route path="/inscription" element={isAuthenticated ? <Navigate to={"/"} /> : <Inscription />} />
 
 
             <Route path="/conception" element={<Conception />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path="/users" element={<Users />} />
+
+
+
+            <Route path="/users" element={ user?.role === "admin" ? <Users /> : <Navigate to={"/"} />} />
+
+
             <Route path="/post/:id" element={<Post />} />
             {isAuthenticated &&
                 <>

@@ -10,21 +10,22 @@ export default function Inscription() {
 	const navigate = useNavigate();
 	const [users, setUsers] = useState([])
 	const [isSignedUp, setIsSignedUp] = useState(false)
+	const [erreur, setErreur] = useState(null)
 
 	const { handleSubmit, register, formState: { errors, isValid, isSubmitSuccessful }, reset, } = useForm({
 		resolver: yupResolver(userSchema),
 		mode: "onChange",
 	});
 
-	useEffect(() => {
-		axios
-			.get(`/users`)
-			.then(res => {setUsers(res.data),
-				setIsSignedUp(false)
-			})
-			.catch(() => setErreur("Liste temporairement indisponible"))
+	// useEffect(() => {
+	// 	axios
+	// 		.get(`/users`)
+	// 		.then(res => {setUsers(res.data),
+	// 			setIsSignedUp(false)
+	// 		})
+	// 		.catch(() => setErreur("Liste temporairement indisponible"))
 
-	}, [])
+	// }, [])
 
 
 
