@@ -19,13 +19,14 @@ export default function Creer() {
     function addPost(formData) {
 
         console.log(user);
+        console.log("FILENAME : ", formData.chemin_image[0].name);
         const imgPath = formData.chemin_image[0].name
 
         formData.id_users = user.id
 
         formData.chemin_image = `/${imgPath}`
-        //formData.chemin_image = FileList.chemin_image.name
-        console.log(formData.chemin_image[0].name);
+        
+        
 
         console.log("LES DATA DU FORM : ", formData);
 

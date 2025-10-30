@@ -66,12 +66,12 @@ export default function Header() {
 							Calcul d'itinéraires
 						</Link>
 					</li>
-					{user?.role === 'admin' && 
-					<li>
-						<Link className="dropdown-item text-light list-bg" to="/users">
-							users
-						</Link>
-					</li>
+					{user?.role === 'admin' &&
+						<li>
+							<Link className="dropdown-item text-light list-bg" to="/users">
+								users
+							</Link>
+						</li>
 					}
 				</ul>
 			</div>
@@ -123,10 +123,19 @@ export default function Header() {
 				</div>
 			}
 			{user &&
-				<button className="btn m-2 info" style={{ color: "#eb7c05d0" }} onClick={logout}><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-door-open" viewBox="0 0 16 16">
-					<path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
-					<path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
-				</svg></button>
+				<div>
+					<button className="btn m-2 info" style={{ color: "#eb7c05d0" }} onClick={() => navigate("/profil")}>
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person-lines-fill" viewBox="0 0 16 16">
+							<path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+						</svg>
+					</button>
+					<button className="btn m-2 info" style={{ color: "#eb7c05d0" }} onClick={logout}>
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-door-open" viewBox="0 0 16 16">
+							<path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
+							<path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z" />
+						</svg>
+					</button>
+				</div>
 			}
 		</nav>
 	);

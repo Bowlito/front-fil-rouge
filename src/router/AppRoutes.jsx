@@ -10,6 +10,7 @@ import { GlobalContext } from "../contexts/GlobalContext"
 import ModifPost from "../views/ModifPost/ModifPost"
 import Conception from "../views/Coneption/Conception"
 import Users from "../views/users/Users"
+import Profil from "../views/Profil/Profil"
 
 
 export default function AppRoutes() {
@@ -24,20 +25,14 @@ export default function AppRoutes() {
 
             <Route path="/connexion" element={isAuthenticated ? <Navigate to={"/"} /> : <Connexion />} />
             <Route path="/inscription" element={isAuthenticated ? <Navigate to={"/"} /> : <Inscription />} />
-
-
             <Route path="/conception" element={<Conception />} />
             <Route path="/blog" element={<Blog />} />
-
-
-
             <Route path="/users" element={user?.role === "admin" ? <Users /> : <Navigate to={"/"} />} />
-
-
             <Route path="/post/:id" element={<Post />} />
             {isAuthenticated &&
                 <>
                     <Route path="/creer" element={<Creer />} />
+                    <Route path="/profil" element={<Profil />} />
 
                 </>
             }

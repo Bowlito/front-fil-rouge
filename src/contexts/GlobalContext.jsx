@@ -13,9 +13,6 @@ export const Provider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(!!token)
 
 
-
-
-
     return (
         <GlobalContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
             {children}
