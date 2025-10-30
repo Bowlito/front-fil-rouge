@@ -33,8 +33,8 @@ export default function Vignette() {
               </div>
             </div>
             <div className="card-back">
-              <p>Plus d’infos sur <strong> {v.titre}</strong> ici !</p>
-              <Link to={`/${v.titre}`} className="btn-back">Voir</Link>
+              <p> Pour en savoir plus </p>
+              <Link to={`/${v.titre}`} className="btn-back">cliquez ici</Link>
             </div>
           </div>
         </div>

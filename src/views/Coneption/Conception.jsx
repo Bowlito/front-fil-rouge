@@ -13,12 +13,12 @@ export default function Conception() {
     },
     { 
       titre: "Les matériaux", 
-      img: "/armaflex.jpg", 
+      img: "/materiaux2.JPG", 
       detail: { isolation: "Armaflex", type: "Résistant à l’humidité" }
     },
     { 
       titre: "L’aménagement", 
-      img: "/amenagement.png", 
+      img: "/amenagement2.JPG", 
       detail: { placards: "Bois clair", lits: "Convertible 2 places" }
     }
   ];
